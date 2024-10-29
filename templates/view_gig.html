@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+  <h2>Gig Details</h2>
+  <hr>
+  
+  <h5><strong>Title:</strong> {{ gig.title }}</h5>
+  <p><strong>Price:</strong> {{ gig.price }}</p>
+  <p><strong>Rating:</strong> {{ gig.rating }} ({{ gig.rating_count }} reviews)</p>
+  <p><strong>Country:</strong> {{ gig.country }}</p>
+
+  <h5>Description</h5>
+  <p>{{ gig.description }}</p>
+
+  <h5>User Stats</h5>
+  <p>{{ gig.user_stats|safe }}</p>  <!-- Using 'safe' to render HTML correctly -->
+
+  <h5>Additional Info</h5>
+  <p>{{ gig.additional_info }}</p>
+
+  <h5>Keywords</h5>
+  <ul>
+    {% for keyword in gig.keywords %}
+      <li>{{ keyword }}</li>
+    {% endfor %}
+  </ul>
+  
+  <br>
+  <a href="{{ gig.url }}" target="_blank" class="btn btn-primary">View Original Gig on Fiverr</a>
+</div>
+{% endblock %}

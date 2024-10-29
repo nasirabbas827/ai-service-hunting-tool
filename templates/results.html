@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+  <h2>Search Results</h2>
+  <hr>
+  
+  <form method="get" action="{{ url_for('results') }}">
+    <div class="form-group">
+      <label for="min_rating">Filter by Rating:</label>
+      <select name="min_rating" id="min_rating" class="form-control">
+        <option value="">All Ratings</option>
+        {% for rating in ratings %}
+          <option value="{{ rating }}">{{ rating }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    
+    <div class="form-group">
+      <label for="seller_level">Filter by Seller Level:</label>
+      <select name="seller_level" id="seller_level" class="form-control">
+        <option value="">All Levels</option>
+        {% for gig in gigs %}
+          <option value="{{ gig.country }}">{{ gig.country }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    
+    <button type="submit" class="btn btn-primary mt-2">Apply Filters</button>
+  </form>
+
+  {% if gigs %}
+    <div class="row mt-4">
+      {% for gig in gigs %}
+        <div class="col-md-4">
+          <div class="card mb-4">
+            <div class="card-body">
+              <h5 class="card-title">{{ gig.title }}</h5>
+              <p class="card-text">Price: {{ gig.price }} | Rating: {{ gig.rating }} ({{ gig.rating_count }} reviews) | Seller Level: {{ gig.country }}</p>
+              <a href="{{ url_for('view_gig', gig_url=gig.url) }}" class="btn btn-outline-success">View Gig</a>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+
+    <button type="button" class="btn btn-dark text-center" onclick="toggleKeywords()">View Recommended Keywords</button>
+<a href="{{ url_for('visualize_stats') }}" class="btn btn-info">View Gig Statistics</a>
+
+    <div id="keywords" style="display:none;" class="mt-3">
+      <h5>Focus Keywords:</h5>
+      <div class="row">
+        {% for keyword in keywords %}
+          <div class="col-md-2 col-sm-4 mb-3"> 
+            <div class="card text-center">
+              <div class="card-body">
+                <p class="card-text">{{ keyword }}</p>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  {% else %}
+    <p>No results found.</p>
+  {% endif %}
+
+  <!-- Add this button -->
+
+</div>
+
+<script>
+function toggleKeywords() {
+  var x = document.getElementById("keywords");
+  x.style.display = x.style.display === "none" ? "block" : "none";
+}
+</script>
+{% endblock %}

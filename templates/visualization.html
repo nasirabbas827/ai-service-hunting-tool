@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+  <h2>Gig Statistics</h2>
+  <hr>
+  <p><strong>Total Sales:</strong> PKR{{ total_sales }}</p>
+  <p><strong>Average Rating:</strong> {{ average_rating }}</p>
+  
+  <h3>Distribution of Ratings</h3>
+  <img src="data:image/png;base64,{{ plot_url }}" alt="Gig Ratings Distribution">
+  
+  <a href="{{ url_for('results') }}" class="btn btn-primary mt-3">Back to Results</a>
+</div>
+{% endblock %}
