@@ -14,7 +14,7 @@ import time
 import random
 
 app = Flask(__name__)
-app.secret_key = 'your_secret_key'
+app.secret_key = "YOUR_OWN_API_KEY"
 
 # MySQL Configuration
 app.config['MYSQL_HOST'] = 'localhost'
